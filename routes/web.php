@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/stripe', [StripePaymentController::class, 'stripe'])->name('stripe.index')->withoutMiddleware(['auth']);
+Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post')->withoutMiddleware(['auth']);
+
 
 require __DIR__.'/auth.php';
